@@ -16,13 +16,13 @@ This project is very much still a work in progress.
 The CLI is now in beta. 
 If you wish to collaborate while the project is still young, check out [our issue list](https://github.com/angular/angular-cli/issues).
 
-## Webpack preview release update
+## Webpack update
 
-We're updating the build system in Angular-CLI to use webpack instead of Broccoli.
+We changed the build system between beta.10 and beta.12, from SystemJS to Webpack. 
+And with it comes a lot of benefits. 
+To take advantage of these, your app built with the old beta will need to migrate.
 
-You can install and update your projects using [these instructions](https://github.com/angular/angular-cli/blob/master/WEBPACK_UPDATE.md).
-
-**The current instructions on this file reflect usage for the `webpack` version.**
+You can update your `beta.10` projects to `beta.12` by following [these instructions](https://github.com/angular/angular-cli/wiki/Upgrading-from-Beta.10-to-Beta.14).
 
 ## Prerequisites
 
@@ -126,13 +126,19 @@ The build artifacts will be stored in the `dist/` directory.
 
 ### Build Targets and Environment Files
 
-A build can specify both a build target (`development` or `production`) and an 
-environment file to be used with that build. By default, the development build 
-target is used.
+`ng build` can specify both a build target (`--target=production` or `--target=development`) and an 
+environment file to be used with that build (`--environment=dev` or `--environment=prod`). 
+By default, the development build target and environment are used.
 
-At build time, `src/environments/environment.ts` will be replaced by
-`src/environments/environment.NAME.ts` where `NAME` is the argument 
-provided to the `--environment` flag.
+The mapping used to determine which environment file is used can be found in `angular-cli.json`:
+
+```
+"environments": {
+  "source": "environments/environment.ts",
+  "dev": "environments/environment.ts",
+  "prod": "environments/environment.prod.ts"
+}
+```
 
 These options also apply to the serve command. If you do not pass a value for `environment`,
 it will default to `dev` for `development` and `prod` for `production`.
@@ -151,8 +157,8 @@ ng build
 
 You can also add your own env files other than `dev` and `prod` by doing the following:
 - create a `src/environments/environment.NAME.ts`
-- add `{ NAME: 'src/environments/environment.NAME.ts' }` to the the `apps[0].environments` object in `angular-cli.json` 
-- use them by using the `--env=NAME` flag on the build/serve commands.
+- add `{ "NAME": 'src/environments/environment.NAME.ts' }` to the the `apps[0].environments` object in `angular-cli.json` 
+- use them via the `--env=NAME` flag on the build/serve commands.
 
 ### Base tag handling in index.html
 
