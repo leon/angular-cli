@@ -14,6 +14,7 @@ export interface ServeTaskOptions {
   port?: number;
   host?: string;
   proxyConfig?: string;
+  hot?: boolean;
   watcher?: string;
   liveReload?: boolean;
   liveReloadHost?: string;
@@ -43,6 +44,12 @@ const ServeCommand = Command.extend({
       description: 'Listens on all interfaces by default'
     },
     { name: 'proxy-config',         type: 'Path',                          aliases: ['pc'] },
+    {
+      name: 'hot',
+      type: Boolean,
+      default: false,
+      description: 'Enable Webpack Hot Module Replacement'
+    },
     { name: 'watcher',              type: String,  default: 'events',      aliases: ['w'] },
     { name: 'live-reload',          type: Boolean, default: true,          aliases: ['lr'] },
     {

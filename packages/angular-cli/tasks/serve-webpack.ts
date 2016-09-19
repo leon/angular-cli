@@ -54,6 +54,7 @@ export default Task.extend({
       historyApiFallback: true,
       stats: webpackDevServerOutputOptions,
       inline: true,
+      hot: commandOptions.hot,
       proxy: proxyConfig
     };
 
